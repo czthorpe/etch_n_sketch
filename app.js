@@ -18,13 +18,16 @@ button.addEventListener('click', (e) => {
         newPixelGrid(newSize);
     }
     else {
-        console.log("Invalid input. Don't do that");
+        sadFace();
     }
 })
 
 function removePixels() {
     let pixels = document.querySelectorAll('#canvas div');
+    let sadFaces = document.querySelectorAll('#canvas p');
     pixels.forEach(pixel => pixel.remove());
+    sadFaces.forEach(sadFace => sadFace.remove());
+
 }
 
 function newPixelGrid(gridSize) {
@@ -46,4 +49,11 @@ function newPixelGrid(gridSize) {
             pixel.style.backgroundColor = randomColor();
         })
     })
+}
+
+function sadFace() {
+    let canvas = document.querySelector('#canvas');
+    let paragraph = document.createElement('p');
+    paragraph.textContent = "it must be a number fren :(";
+    canvas.append(paragraph);
 }
