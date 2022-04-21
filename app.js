@@ -17,9 +17,10 @@ button.addEventListener('click', (e) => {
     if (newSize <= 100 && Number.isInteger(newSize)) {
         newPixelGrid(newSize);
     }
-    else {
-        sadFace();
+    else if (newSize > 100) {
+        sadFace(true);
     }
+    else sadFace(false);
 })
 
 function removePixels() {
@@ -51,9 +52,16 @@ function newPixelGrid(gridSize) {
     })
 }
 
-function sadFace() {
+function sadFace(error) {
     let canvas = document.querySelector('#canvas');
     let paragraph = document.createElement('p');
-    paragraph.textContent = "it must be a number fren :(";
-    canvas.append(paragraph);
+
+    if (error == true) {
+        paragraph.textContent = "no over 100 >:(";
+        canvas.append(paragraph);
+    }
+    else {
+        paragraph.textContent = "it must be a number fren :(";
+        canvas.append(paragraph);
+    }
 }
