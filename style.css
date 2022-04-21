@@ -23,6 +23,7 @@ body div {
     width: 32rem;
     flex-wrap: wrap;
     border: 3px black solid;
+    background-color: rgb(251, 244, 227);
     border-radius: 6px;
 }
 
