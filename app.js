@@ -12,7 +12,7 @@ function randomNum() {
 let button = document.querySelector('button');
 
 button.addEventListener('click', (e) => {
-    removePixels();
+    removeChildren();
     let newSize = parseInt(prompt("How many pixels do you want? (Up to 100)"));
     if (newSize <= 100 && Number.isInteger(newSize)) {
         newPixelGrid(newSize);
@@ -23,7 +23,7 @@ button.addEventListener('click', (e) => {
     else sadFace(false);
 })
 
-function removePixels() {
+function removeChildren() {
     let pixels = document.querySelectorAll('#canvas div');
     let sadFaces = document.querySelectorAll('#canvas p');
     pixels.forEach(pixel => pixel.remove());
