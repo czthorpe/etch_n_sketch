@@ -1,7 +1,9 @@
+let color = 'black';
 
 newPixelGrid(16);
+setCursorColor(color);
 
-function randomColor() {
+function returnRandomColor() {
     return `rgba(${randomNum()}, ${randomNum()}, ${randomNum()})`
 }
 
@@ -9,9 +11,13 @@ function randomNum() {
     return Math.floor(Math.random() * 256);
 }
 
-let button = document.querySelector('button');
+let mouseDown = false
+document.body.onmousedown = () => (mouseDown = true)
+document.body.onmouseup = () => (mouseDown = false)
 
-button.addEventListener('click', (e) => {
+let resetButton = document.querySelector('#reset');
+
+resetButton.addEventListener('click', (e) => {
     removeChildren();
     let newSize = parseInt(prompt("How many pixels do you want? (Up to 100)"));
     if (newSize <= 100 && Number.isInteger(newSize)) {
@@ -21,6 +27,18 @@ button.addEventListener('click', (e) => {
         sadFace(true);
     }
     else sadFace(false);
+})
+
+let blackButton = document.querySelector('#black');
+blackButton.addEventListener('click', (e) => {
+    color = 'black';
+    setCursorColor(color);
+})
+
+let randomColorButton = document.querySelector('#randomColor');
+randomColorButton.addEventListener('click', (e) => {
+    color = 'random';
+    setCursorColor(color);
 })
 
 function removeChildren() {
@@ -37,20 +55,38 @@ function newPixelGrid(gridSize) {
     for (let i = 0; i < gridSize; i++) {
         for (let j = 0; j < gridSize; j++) {
             let div = document.createElement('div');
-            div.style.backgroundColor = randomColor();
+            div.style.backgroundColor = 'white';
             div.style.width = 32 / gridSize + 'rem';
             div.style.height = 32 / gridSize + 'rem';
             canvas.append(div);
         }
     }
+    setCursorColor(color);
+}
+
+function setCursorColor(cursorColor) {
     let pixels = document.querySelectorAll('#canvas div');
 
-    pixels.forEach((pixel) => {
-        pixel.addEventListener('mouseover', (e) => {
-            pixel.style.backgroundColor = randomColor();
+    if (cursorColor == 'black') {
+        pixels.forEach((pixel) => {
+            pixel.addEventListener('mouseover', (e) => {
+                if (mouseDown) {
+                    pixel.style.backgroundColor = 'black';
+                }
+            })
         })
-    })
+    }
+    else if (cursorColor == 'random') {
+        pixels.forEach((pixel) => {
+            pixel.addEventListener('mouseover', (e) => {
+                if (mouseDown) {
+                    pixel.style.backgroundColor = returnRandomColor();
+                }
+            })
+        })
+    }
 }
+
 
 function sadFace(error) {
     let canvas = document.querySelector('#canvas');
